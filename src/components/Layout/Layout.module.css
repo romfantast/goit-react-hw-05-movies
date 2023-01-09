@@ -1,0 +1,11 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.appHeader {
+  background-color: rgb(210, 84, 84);
+}
+.appContent {
+  background-color: rgb(43, 192, 58);
+}

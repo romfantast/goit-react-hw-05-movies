@@ -1,0 +1,22 @@
+.homeContent {
+  padding: 15px 25px;
+}
+.trendList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.trendItem {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.trendItem:hover {
+  text-decoration: underline;
+  color: #2d46c3;
+}

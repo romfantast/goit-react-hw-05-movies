@@ -1,0 +1,31 @@
+.navigation {
+  padding: 15px 20px;
+  font-size: 24px;
+  display: flex;
+  column-gap: 35px;
+  background-color: #8fdde7;
+}
+.navLink {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 5px;
+  text-decoration: none;
+  color: white;
+}
+
+.navLink svg {
+  fill: #a49393;
+}
+
+.navLink:hover {
+  color: #e8b4b8;
+}
+.navLink:hover svg {
+  fill: #867a7a;
+}
+
+.activeLink {
+  color: blue;
+  background-color: red;
+}
