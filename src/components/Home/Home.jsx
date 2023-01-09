@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { getTrending } from 'services/movie-api';
 import Loader from '../Loader/Loader';
 import css from './Home.module.css';
+import { NavLink } from 'react-router-dom';
 
 export const Home = () => {
   const [trendMovies, setTrendMovies] = useState();
@@ -35,8 +36,10 @@ export const Home = () => {
             {trendMovies &&
               trendMovies.map(({ id, title, name }) => (
                 <li key={id} className={css.trendItem}>
-                  <BiCaretRight />
-                  {title || name}
+                  <NavLink to={`movies/${id}`}>
+                    <BiCaretRight />
+                    {title || name}
+                  </NavLink>
                 </li>
               ))}
           </ul>

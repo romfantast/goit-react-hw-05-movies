@@ -1,0 +1,41 @@
+.movieDetailsSection {
+    padding: 15px 25px;
+    
+}
+.movieDetailsWrapper{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 30px;
+}
+.details {
+    max-width: 300px;    
+}
+.backLink {
+    display: grid;
+    place-content: center;
+    height: 30px;
+    width: 70px;
+    margin-bottom: 20px;
+    background-color: #8fdde7;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+}
+.backLink:hover {
+    background-color: #65beca;
+}
+
+.error {
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+
+}
+
+.additionalCast, .additionalReview {
+    font-size: 20px;
+    font-weight: 500;
+    text-decoration: underline;
+}
