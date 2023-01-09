@@ -3,10 +3,12 @@ import { Notify } from 'notiflix';
 import css from './Movies.module.css';
 import { getMovie } from 'services/movie-api';
 import { BiChevronRight, BiSearch } from 'react-icons/bi';
+import Loader from 'components/Loader/Loader';
 
 export const Movies = () => {
   const [movie, setMovie] = useState([]);
   const [query, setQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   let isFirstRender = useRef(true);
 
   useEffect(() => {
@@ -18,11 +20,14 @@ export const Movies = () => {
 
     (async () => {
       try {
+        setIsLoading(true);
         const { data } = await getMovie(query);
         console.log(data);
         setMovie(data.results);
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     })();
   }, [query]);
@@ -47,6 +52,7 @@ export const Movies = () => {
           Search
         </button>
       </form>
+      {isLoading && <Loader />}
       <ul className={css.searchList}>
         {movie &&
           movie.map(({ id, original_title }) => (
