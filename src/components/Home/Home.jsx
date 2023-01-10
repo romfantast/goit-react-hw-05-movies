@@ -17,7 +17,6 @@ export const Home = () => {
       try {
         setIsLoading(true);
         const { data } = await getTrending();
-        console.log(data);
         setTrendMovies(data.results);
       } catch (error) {
         console.warn(error);

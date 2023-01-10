@@ -5,7 +5,7 @@ import { BiChevronRight, BiSearch } from 'react-icons/bi';
 import Loader from 'components/Loader/Loader';
 import { NavLink, useLocation, useSearchParams } from 'react-router-dom';
 
-export const Movies = () => {
+const Movies = () => {
   const [movie, setMovie] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -21,7 +21,6 @@ export const Movies = () => {
       try {
         setIsLoading(true);
         const { data } = await getMovie(searchQuery);
-        console.log(data);
         localStorage.setItem('query', JSON.stringify(searchQuery));
         setMovie(data.results);
       } catch (error) {
@@ -86,3 +85,5 @@ export const Movies = () => {
     </section>
   );
 };
+
+export default Movies;

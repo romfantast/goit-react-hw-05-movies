@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { getMovieCredits } from 'services/movie-api';
 import css from './Cast.module.css';
 
-export const Cast = () => {
+const Cast = () => {
   const [cast, setCast] = useState(null);
   const { movieId } = useParams();
 
@@ -12,7 +12,6 @@ export const Cast = () => {
     (async () => {
       try {
         const { data } = await getMovieCredits(movieId);
-        console.log(data);
         setCast(data.cast);
       } catch (error) {
         console.log(error);
@@ -44,3 +43,5 @@ export const Cast = () => {
     </section>
   );
 };
+
+export default Cast;

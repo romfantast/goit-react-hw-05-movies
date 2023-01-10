@@ -5,7 +5,7 @@ import { getMovieReview } from 'services/movie-api';
 import css from './Reviews.module.css';
 import { paintStars } from 'components/helpers/paintStars';
 
-export const Reviews = () => {
+const Reviews = () => {
   const [reviews, setReviews] = useState(null);
   const { movieId } = useParams();
 
@@ -13,7 +13,6 @@ export const Reviews = () => {
     (async () => {
       try {
         const { data } = await getMovieReview(movieId);
-        console.log(data);
         setReviews(data.results);
       } catch (error) {
         console.log(error);
@@ -67,3 +66,5 @@ export const Reviews = () => {
     </section>
   );
 };
+
+export default Reviews;

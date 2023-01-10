@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Loader from 'components/Loader/Loader';
 import { useEffect, useState } from 'react';
 import { NavLink, Outlet, useLocation, useParams } from 'react-router-dom';
@@ -8,7 +8,7 @@ import css from './MovieDetails.module.css';
 import { howMuchStars } from 'components/helpers/howMuchStars';
 import { showGenres } from 'components/helpers/showGenres';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [star, setStar] = useState(null);
@@ -99,9 +99,13 @@ export const MovieDetails = () => {
             </NavLink>
           </div>
           <hr />
-          <Outlet />
+          <Suspense fallback={<Loader />}>
+            <Outlet />
+          </Suspense>
         </>
       )}
     </section>
   );
 };
+
+export default MovieDetails;
