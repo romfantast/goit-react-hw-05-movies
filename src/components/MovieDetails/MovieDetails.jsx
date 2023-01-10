@@ -5,10 +5,14 @@ import { NavLink, Outlet, useLocation, useParams } from 'react-router-dom';
 import { MdErrorOutline } from 'react-icons/md';
 import { getMovieDetails } from 'services/movie-api';
 import css from './MovieDetails.module.css';
+import { howMuchStars } from 'components/helpers/howMuchStars';
+import { showGenres } from 'components/helpers/showGenres';
 
 export const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [star, setStar] = useState(null);
+  const [starsList, setStarsList] = useState([]);
   const [isError, setIsError] = useState(false);
   const { movieId } = useParams();
   const location = useLocation();
@@ -18,6 +22,7 @@ export const MovieDetails = () => {
       try {
         setIsLoading(true);
         const { data } = await getMovieDetails(movieId);
+        howMuchStars(star, setStar, setStarsList, data.vote_average);
         setMovie(data);
       } catch (error) {
         console.log(error);
@@ -26,15 +31,7 @@ export const MovieDetails = () => {
         setIsLoading(false);
       }
     })();
-  }, [movieId]);
-
-  const showGenres = genres => {
-    const genresArray = [];
-    for (let genre of genres) {
-      genresArray.push(genre.name);
-    }
-    return genresArray.join(', ');
-  };
+  }, [movieId, star]);
 
   return (
     <section className={css.movieDetailsSection}>
@@ -52,9 +49,9 @@ export const MovieDetails = () => {
       {movie && (
         <>
           <div className={css.movieDetailsWrapper}>
-            <div>
+            <div className={css.imageWrapper}>
               <img
-                width="300px"
+                className={css.imagePreview}
                 src={
                   movie.backdrop_path
                     ? `http://image.tmdb.org/t/p/w500/${movie.backdrop_path}`
@@ -67,25 +64,27 @@ export const MovieDetails = () => {
               <p>
                 <b>{movie.original_title}</b>
               </p>
-              <p>Rating: {movie.vote_average}</p>
-              <hr />
               <p>
-                <b>Overview: </b>
-                <br />
-                {movie.overview}
+                Rating: {movie.vote_average} &nbsp;{starsList}
               </p>
               <hr />
-
-              <p>Genres</p>
+              <p>
+                <b>Overview:</b>
+              </p>
+              <p>{movie.overview}</p>
+              <hr />
+              <p>
+                <b>Genres: </b>
+              </p>
               <p>{showGenres(movie.genres)}</p>
               <hr />
             </div>
           </div>
+          <h4>Additional information: </h4>
           <div className={css.additional}>
-            <h4>Additional information: </h4>
             <NavLink
               to="cast"
-              className={css.additionalCast}
+              className={({ isActive }) => (isActive ? css.active : css.detail)}
               state={{ from: location.state?.from ?? '/' }}
             >
               Cast
@@ -93,7 +92,7 @@ export const MovieDetails = () => {
             <br />
             <NavLink
               to="review"
-              className={css.additionalReview}
+              className={({ isActive }) => (isActive ? css.active : css.detail)}
               state={{ from: location.state?.from ?? '/' }}
             >
               Review

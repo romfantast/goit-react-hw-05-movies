@@ -32,7 +32,7 @@ export const Cast = () => {
                 src={
                   profile_path
                     ? `http://image.tmdb.org/t/p/w500/${profile_path}`
-                    : 'http://bl-systeme.ch/wp-content/uploads/2021/01/person-placeholder_550_700.jpg'
+                    : 'https://pocosmiles.com/wp-content/uploads/2021/05/500-x-750-Placeholder.jpg'
                 }
                 alt=""
               />

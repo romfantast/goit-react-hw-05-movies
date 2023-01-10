@@ -13,7 +13,11 @@ export const Appbar = () => {
     <header className={css.header}>
       <nav className={css.navigation}>
         {navItems.map(({ href, text, icon: Icon }) => (
-          <NavLink key={href} to={href} className={css.navLink}>
+          <NavLink
+            key={href}
+            to={href}
+            className={({ isActive }) => (isActive ? css.active : css.navLink)}
+          >
             <Icon />
             {text}
           </NavLink>

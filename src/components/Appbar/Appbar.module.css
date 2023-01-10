@@ -3,13 +3,15 @@
   font-size: 24px;
   display: flex;
   column-gap: 35px;
-  background-color: #8fdde7;
+  background-color: #60c5d2;
 }
 .navLink {
+  padding: 5px 10px;
   display: flex;
   flex-direction: row;
   align-items: center;
   column-gap: 5px;
+  border-radius: 6px;
   text-decoration: none;
   color: white;
 }
@@ -18,14 +20,14 @@
   fill: #a49393;
 }
 
-.navLink:hover {
-  color: #e8b4b8;
-}
-.navLink:hover svg {
-  fill: #867a7a;
-}
-
-.activeLink {
-  color: blue;
-  background-color: red;
+.active {
+  padding: 5px 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 5px;
+  border-radius: 6px;
+  text-decoration: none;
+  background-color: #a49393;
+  color: white;
 }

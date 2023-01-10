@@ -2,6 +2,7 @@
   padding: 15px 25px;
 }
 .trendList {
+  max-width: 700px;
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -9,14 +10,25 @@
 }
 
 .trendItem {
+  font-weight: 500;
+  height: 50px;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  transition: all 150ms linear;
+}
+.trendItem a {
+  font-weight: 500;
+  padding-left: 10px;
   display: flex;
   align-items: center;
   column-gap: 5px;
-  font-weight: 500;
-  cursor: pointer;
+  height: 100%;
+  transition: all 150ms linear;
 }
 
-.trendItem:hover {
-  text-decoration: underline;
-  color: #2d46c3;
+.trendItem:hover a {
+  color: #1c98a8;
+  background-color: #fbfbfb;
 }

@@ -11,6 +11,7 @@
   font-weight: 500;
   width: 250px;
   padding: 10px 20px;
+  background-color: #ededed;
   border: 2px solid #d3b5e5;
   border-radius: 4px;
   outline: none;
@@ -38,7 +39,7 @@
 }
 
 .searchList {
-  padding: 15px 65px;
+  max-width: 700px;
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -46,17 +47,31 @@
 }
 
 .searchItem {
+  font-weight: 500;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  transition: all 150ms linear;
+}
+.searchItem a {
+  padding-left: 10px;
   display: flex;
   align-items: center;
   column-gap: 5px;
-  font-weight: 500;
-  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  transition: all 150ms linear;
 }
 
-.searchItem:hover {
-  text-decoration: underline;
-  color: #2d46c3;
+.searchItem:hover a {
+  color: #1c98a8;
+  background-color: #fbfbfb;
 }
-.searchCaption{
+
+.searchCaption {
   padding: 0px 65px 0 65px;
 }

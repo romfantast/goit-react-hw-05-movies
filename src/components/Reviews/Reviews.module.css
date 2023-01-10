@@ -1,0 +1,39 @@
+.reviewsList {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+}
+.review {
+  padding: 10px 20px;
+  line-height: 1.5;
+  border-radius: 8px;
+  background-color: #efeeee;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+p {
+  margin: 0;
+}
+
+.avatar {
+  border-radius: 4px;
+  float: left;
+  margin-right: 15px;
+  width: 150px;
+}
+.rating {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  margin: 7px 0;
+}
+.rating span {
+  display: flex;
+  column-gap: 3px;
+  align-items: center;
+}
+.rating span svg {
+  fill: #ffb600;
+}

@@ -10,16 +10,19 @@ export const Movies = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery =
-    searchParams.get('query') ?? JSON.parse(localStorage.getItem('query'));
+    searchParams.get('query') ??
+    JSON.parse(localStorage.getItem('query')) ??
+    '';
   const location = useLocation();
 
   useEffect(() => {
-    if (searchQuery === '') return;
+    if (!searchQuery) return;
     (async () => {
       try {
         setIsLoading(true);
         const { data } = await getMovie(searchQuery);
         console.log(data);
+        localStorage.setItem('query', JSON.stringify(searchQuery));
         setMovie(data.results);
       } catch (error) {
         console.log(error);
@@ -45,6 +48,7 @@ export const Movies = () => {
     <section>
       <form className={css.searchForm} onSubmit={handlerSubmit}>
         <input
+          defaultValue={searchQuery}
           type="text"
           name="searchQuery"
           className={css.input}
@@ -61,20 +65,22 @@ export const Movies = () => {
         <>
           <h3 className={css.searchCaption}>
             {searchQuery
-              ? `Search results for: '${searchQuery}`
+              ? `Search results for: '${searchQuery}'`
               : 'Please enter a movie title'}
           </h3>
-          <ul className={css.searchList}>
-            {movie &&
-              movie.map(({ id, original_title }) => (
+
+          {movie && (
+            <ul className={css.searchList}>
+              {movie.map(({ id, original_title }) => (
                 <li key={id} className={css.searchItem}>
-                  <BiChevronRight />
                   <NavLink to={`${id}`} state={{ from: location }}>
+                    <BiChevronRight />
                     {original_title}
                   </NavLink>
                 </li>
               ))}
-          </ul>
+            </ul>
+          )}
         </>
       )}
     </section>

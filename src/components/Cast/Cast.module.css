@@ -1,19 +1,26 @@
 .actorsList {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    list-style: none;
-   
+  /* display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  list-style: none; */
+  padding-left: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-gap: 2vw;
 }
 
 .actorItem {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-align: center;
-    flex-basis: calc((100% - 20px)/ 4);
-    border: 1px solid blue;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  flex-basis: calc((100% - 50px) / 4);
+  font-size: 18px;
+  font-weight: 600;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 .actorAvatar {
-    width: 100%;
+  width: 100%;
 }
