@@ -71,6 +71,7 @@ p:first-child {
 }
 
 .details p {
+  padding: 5px;
   display: flex;
   align-items: center;
   column-gap: 5px;

@@ -1,6 +1,5 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import Loader from 'components/Loader/Loader';
-import { useEffect, useState } from 'react';
 import { NavLink, Outlet, useLocation, useParams } from 'react-router-dom';
 import { MdErrorOutline } from 'react-icons/md';
 import { getMovieDetails } from 'services/movie-api';
