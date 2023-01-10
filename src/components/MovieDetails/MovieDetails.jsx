@@ -1,8 +1,8 @@
 import React from 'react';
-import { MdErrorOutline } from 'react-icons/md';
 import Loader from 'components/Loader/Loader';
 import { useEffect, useState } from 'react';
-import { NavLink, Outlet, useParams } from 'react-router-dom';
+import { NavLink, Outlet, useLocation, useParams } from 'react-router-dom';
+import { MdErrorOutline } from 'react-icons/md';
 import { getMovieDetails } from 'services/movie-api';
 import css from './MovieDetails.module.css';
 
@@ -11,6 +11,7 @@ export const MovieDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const { movieId } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     (async () => {
@@ -37,7 +38,7 @@ export const MovieDetails = () => {
 
   return (
     <section className={css.movieDetailsSection}>
-      <NavLink to="/" className={css.backLink}>
+      <NavLink to={location.state?.from ?? '/movies'} className={css.backLink}>
         Back
       </NavLink>
       {isLoading && <Loader />}
@@ -82,11 +83,19 @@ export const MovieDetails = () => {
           </div>
           <div className={css.additional}>
             <h4>Additional information: </h4>
-            <NavLink to="cast" className={css.additionalCast}>
+            <NavLink
+              to="cast"
+              className={css.additionalCast}
+              state={{ from: location.state?.from ?? '/' }}
+            >
               Cast
             </NavLink>
             <br />
-            <NavLink to="review" className={css.additionalReview}>
+            <NavLink
+              to="review"
+              className={css.additionalReview}
+              state={{ from: location.state?.from ?? '/' }}
+            >
               Review
             </NavLink>
           </div>

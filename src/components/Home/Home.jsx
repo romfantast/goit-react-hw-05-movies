@@ -5,11 +5,12 @@ import { useState } from 'react';
 import { getTrending } from 'services/movie-api';
 import Loader from '../Loader/Loader';
 import css from './Home.module.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 export const Home = () => {
   const [trendMovies, setTrendMovies] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     (async () => {
@@ -36,7 +37,7 @@ export const Home = () => {
             {trendMovies &&
               trendMovies.map(({ id, title, name }) => (
                 <li key={id} className={css.trendItem}>
-                  <NavLink to={`movies/${id}`}>
+                  <NavLink to={`movies/${id}`} state={{ from: location }}>
                     <BiCaretRight />
                     {title || name}
                   </NavLink>

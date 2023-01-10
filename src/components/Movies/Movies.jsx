@@ -1,27 +1,24 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Notify } from 'notiflix';
+import React, { useState, useEffect } from 'react';
 import css from './Movies.module.css';
 import { getMovie } from 'services/movie-api';
 import { BiChevronRight, BiSearch } from 'react-icons/bi';
 import Loader from 'components/Loader/Loader';
+import { NavLink, useLocation, useSearchParams } from 'react-router-dom';
 
 export const Movies = () => {
   const [movie, setMovie] = useState([]);
-  const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  let isFirstRender = useRef(true);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchQuery =
+    searchParams.get('query') ?? JSON.parse(localStorage.getItem('query'));
+  const location = useLocation();
 
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-    if (query === '') return Notify.info('Please enter a valid search string');
-
+    if (searchQuery === '') return;
     (async () => {
       try {
         setIsLoading(true);
-        const { data } = await getMovie(query);
+        const { data } = await getMovie(searchQuery);
         console.log(data);
         setMovie(data.results);
       } catch (error) {
@@ -30,12 +27,18 @@ export const Movies = () => {
         setIsLoading(false);
       }
     })();
-  }, [query]);
+
+    return () => localStorage.setItem('query', JSON.stringify(searchQuery));
+  }, [searchQuery]);
 
   const handlerSubmit = e => {
     e.preventDefault();
     const { value } = e.target.searchQuery;
-    setQuery(value.trim().toLowerCase());
+    setSearchParams(
+      value.trim().toLowerCase() !== ''
+        ? { query: value.trim().toLowerCase() }
+        : {}
+    );
   };
 
   return (
@@ -52,16 +55,28 @@ export const Movies = () => {
           Search
         </button>
       </form>
-      {isLoading && <Loader />}
-      <ul className={css.searchList}>
-        {movie &&
-          movie.map(({ id, original_title }) => (
-            <li key={id} className={css.searchItem}>
-              <BiChevronRight />
-              {original_title}
-            </li>
-          ))}
-      </ul>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <h3 className={css.searchCaption}>
+            {searchQuery
+              ? `Search results for: '${searchQuery}`
+              : 'Please enter a movie title'}
+          </h3>
+          <ul className={css.searchList}>
+            {movie &&
+              movie.map(({ id, original_title }) => (
+                <li key={id} className={css.searchItem}>
+                  <BiChevronRight />
+                  <NavLink to={`${id}`} state={{ from: location }}>
+                    {original_title}
+                  </NavLink>
+                </li>
+              ))}
+          </ul>
+        </>
+      )}
     </section>
   );
 };
