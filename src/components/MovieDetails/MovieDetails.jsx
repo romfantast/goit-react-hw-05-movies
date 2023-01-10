@@ -57,8 +57,8 @@ export const MovieDetails = () => {
                 width="300px"
                 src={
                   movie.backdrop_path
-                    ? `https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`
-                    : 'https://bcibelisle.com/wp-content/uploads/2017/05/img_placeholder.png'
+                    ? `http://image.tmdb.org/t/p/w500/${movie.backdrop_path}`
+                    : 'http://bcibelisle.com/wp-content/uploads/2017/05/img_placeholder.png'
                 }
                 alt=""
               />

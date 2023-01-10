@@ -31,8 +31,8 @@ export const Cast = () => {
                 className={css.actorAvatar}
                 src={
                   profile_path
-                    ? `https://image.tmdb.org/t/p/w500/${profile_path}`
-                    : 'https://bl-systeme.ch/wp-content/uploads/2021/01/person-placeholder_550_700.jpg'
+                    ? `http://image.tmdb.org/t/p/w500/${profile_path}`
+                    : 'http://bl-systeme.ch/wp-content/uploads/2021/01/person-placeholder_550_700.jpg'
                 }
                 alt=""
               />
