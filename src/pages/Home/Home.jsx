@@ -1,14 +1,12 @@
-import React from 'react';
-import { BiCaretRight } from 'react-icons/bi';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { getTrending } from 'services/movie-api';
-import Loader from '../Loader/Loader';
-import css from './Home.module.css';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+import { BiCaretRight } from 'react-icons/bi';
+import Loader from '../../components/Loader/Loader';
+import { getTrending } from 'services/movie-api';
+import css from './Home.module.css';
 
 export const Home = () => {
-  const [trendMovies, setTrendMovies] = useState();
+  const [trendMovies, setTrendMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
 

@@ -21,7 +21,6 @@ const MovieDetails = () => {
       try {
         setIsLoading(true);
         const { data } = await getMovieDetails(movieId);
-        howMuchStars(star, setStar, setStarsList, data.vote_average);
         setMovie(data);
       } catch (error) {
         console.log(error);
@@ -30,7 +29,11 @@ const MovieDetails = () => {
         setIsLoading(false);
       }
     })();
-  }, [movieId, star]);
+  }, [movieId]);
+
+  useEffect(() => {
+    howMuchStars(star, setStar, setStarsList, movie?.vote_average);
+  }, [star, movie]);
 
   return (
     <section className={css.movieDetailsSection}>
@@ -64,7 +67,8 @@ const MovieDetails = () => {
                 <b>{movie.original_title}</b>
               </p>
               <p>
-                Rating: {movie.vote_average} &nbsp;{starsList}
+                Rating: {movie.vote_average}
+                &nbsp;{starsList}
               </p>
               <hr />
               <p>
@@ -98,9 +102,11 @@ const MovieDetails = () => {
             </NavLink>
           </div>
           <hr />
-          <Suspense fallback={<Loader />}>
-            <Outlet />
-          </Suspense>
+          <div>
+            <Suspense>
+              <Outlet />
+            </Suspense>
+          </div>
         </>
       )}
     </section>

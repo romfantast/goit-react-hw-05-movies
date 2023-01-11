@@ -4,6 +4,8 @@ import { getMovie } from 'services/movie-api';
 import { BiChevronRight, BiSearch } from 'react-icons/bi';
 import Loader from 'components/Loader/Loader';
 import { NavLink, useLocation, useSearchParams } from 'react-router-dom';
+import { useRef } from 'react';
+import { Notify } from 'notiflix';
 
 const Movies = () => {
   const [movie, setMovie] = useState([]);
@@ -14,14 +16,22 @@ const Movies = () => {
     JSON.parse(localStorage.getItem('query')) ??
     '';
   const location = useLocation();
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
-    if (!searchQuery) return;
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    if (!searchQuery) {
+      Notify.info("The search string should\n't be an empty ");
+      return;
+    }
+
     (async () => {
       try {
         setIsLoading(true);
         const { data } = await getMovie(searchQuery);
-        localStorage.setItem('query', JSON.stringify(searchQuery));
         setMovie(data.results);
       } catch (error) {
         console.log(error);
@@ -29,8 +39,6 @@ const Movies = () => {
         setIsLoading(false);
       }
     })();
-
-    return () => localStorage.setItem('query', JSON.stringify(searchQuery));
   }, [searchQuery]);
 
   const handlerSubmit = e => {

@@ -1,5 +1,5 @@
 import { AiFillStar } from 'react-icons/ai';
-import css from '../MovieDetails/MovieDetails.module.css';
+import css from '../../pages/MovieDetails/MovieDetails.module.css';
 
 export const howMuchStars = (star, setStar, setStarsList, rating) => {
   if (!rating) {
