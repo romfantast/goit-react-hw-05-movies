@@ -25,9 +25,11 @@ p:first-child {
   border-radius: 4px;
   text-decoration: none;
   cursor: pointer;
+
+  transition: all 150ms linear;
 }
 .backLink:hover {
-  background-color: #65beca;
+  background-color: #23a9ba;
 }
 
 .error {
@@ -39,7 +41,6 @@ p:first-child {
   max-width: 300px;
 }
 .imagePreview {
-  /* max-width: 300px; */
   width: 100%;
 }
 
@@ -78,4 +79,7 @@ p:first-child {
 }
 .starIcon {
   fill: #ffb600;
+}
+.iconErrorInfo {
+  fill: rgb(192, 21, 21);
 }

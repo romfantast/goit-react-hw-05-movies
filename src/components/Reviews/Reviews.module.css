@@ -38,3 +38,8 @@ p {
 .rating span svg {
   fill: #ffb600;
 }
+
+.imageWrapper {
+  float: left;
+  margin-right: 15px;
+}

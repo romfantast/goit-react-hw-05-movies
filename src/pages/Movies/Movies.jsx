@@ -1,30 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import css from './Movies.module.css';
-import { getMovie } from 'services/movie-api';
-import { BiChevronRight, BiSearch } from 'react-icons/bi';
-import Loader from 'components/Loader/Loader';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { NavLink, useLocation, useSearchParams } from 'react-router-dom';
-import { useRef } from 'react';
+import { BiChevronRight, BiSearch } from 'react-icons/bi';
 import { Notify } from 'notiflix';
+import Loader from 'components/Loader/Loader';
+import { getMovie } from 'services/movie-api';
+import css from './Movies.module.css';
+import ctx from 'context/moviesContext';
 
 const Movies = () => {
+  const { searchedQuery, setSearchedQuery } = useContext(ctx);
   const [movie, setMovie] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  const searchQuery =
-    searchParams.get('query') ??
-    JSON.parse(localStorage.getItem('query')) ??
-    '';
+  const searchQuery = searchParams.get('query');
   const location = useLocation();
   const isFirstRender = useRef(true);
 
   useEffect(() => {
-    if (isFirstRender.current) {
+    if (!searchQuery && isFirstRender.current) {
       isFirstRender.current = false;
-      return;
-    }
-    if (!searchQuery) {
-      Notify.info("The search string should\n't be an empty ");
       return;
     }
 
@@ -44,12 +38,19 @@ const Movies = () => {
   const handlerSubmit = e => {
     e.preventDefault();
     const { value } = e.target.searchQuery;
-    setSearchParams(
-      value.trim().toLowerCase() !== ''
-        ? { query: value.trim().toLowerCase() }
-        : {}
-    );
+    const validatedValue = value.trim().toLowerCase();
+    if (!validatedValue) {
+      return Notify.info("The search string should\n't be an empty ");
+    }
+    setSearchedQuery(validatedValue);
+    setSearchParams({ query: validatedValue });
   };
+
+  useEffect(() => {
+    if (searchedQuery !== null) {
+      setSearchParams({ query: searchedQuery });
+    }
+  }, [searchedQuery, setSearchParams]);
 
   return (
     <section>
@@ -70,12 +71,6 @@ const Movies = () => {
         <Loader />
       ) : (
         <>
-          <h3 className={css.searchCaption}>
-            {searchQuery
-              ? `Search results for: '${searchQuery}'`
-              : 'Please enter a movie title'}
-          </h3>
-
           {movie && (
             <ul className={css.searchList}>
               {movie.map(({ id, original_title }) => (
@@ -87,6 +82,11 @@ const Movies = () => {
                 </li>
               ))}
             </ul>
+          )}
+          {!movie.length && !isFirstRender && (
+            <p className={css.noResults}>
+              No results for <b>{searchQuery}</b>
+            </p>
           )}
         </>
       )}

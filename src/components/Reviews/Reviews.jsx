@@ -1,11 +1,12 @@
 import React from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieReview } from 'services/movie-api';
 import css from './Reviews.module.css';
 import { paintStars } from 'components/helpers/paintStars';
 
-const Reviews = props => {
+const Reviews = () => {
   const [reviews, setReviews] = useState(null);
   const { movieId } = useParams();
 
@@ -37,17 +38,20 @@ const Reviews = props => {
         <ul className={css.reviewsList}>
           {reviews.map(({ id, author, content, author_details }) => (
             <li key={id} className={css.review}>
-              <p>
-                <img
-                  width="200"
+              <p className={css.imageWrapper}>
+                <LazyLoadImage
+                  width={150}
+                  height={150}
+                  effect="blur"
                   onError={handleImgError}
+                  placeholderSrc="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Placeholder_no_text.svg/150px-Placeholder_no_text.svg.png"
                   className={css.avatar}
                   src={
                     author_details.avatar_path
                       ? `http://image.tmdb.org/t/p/w500/${author_details.avatar_path}`
                       : 'http://bcibelisle.com/wp-content/uploads/2017/05/img_placeholder.png'
                   }
-                  alt="Author"
+                  alt="Author avatar"
                 />
               </p>
               <p>

@@ -6,6 +6,7 @@ import { getMovieDetails } from 'services/movie-api';
 import css from './MovieDetails.module.css';
 import { howMuchStars } from 'components/helpers/howMuchStars';
 import { showGenres } from 'components/helpers/showGenres';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
@@ -43,7 +44,7 @@ const MovieDetails = () => {
       {isLoading && <Loader />}
       {isError && (
         <div className={css.error}>
-          <MdErrorOutline />
+          <MdErrorOutline className={css.iconErrorInfo} />
           Something went wrong...
         </div>
       )}
@@ -52,7 +53,8 @@ const MovieDetails = () => {
         <>
           <div className={css.movieDetailsWrapper}>
             <div className={css.imageWrapper}>
-              <img
+              <LazyLoadImage
+                effect="blur"
                 className={css.imagePreview}
                 src={
                   movie.backdrop_path
@@ -103,7 +105,7 @@ const MovieDetails = () => {
           </div>
           <hr />
           <div>
-            <Suspense>
+            <Suspense fallback={null}>
               <Outlet />
             </Suspense>
           </div>

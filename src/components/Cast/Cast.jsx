@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieCredits } from 'services/movie-api';
 import css from './Cast.module.css';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const Cast = () => {
   const [cast, setCast] = useState(null);
@@ -26,14 +27,16 @@ const Cast = () => {
         <ul className={css.actorsList}>
           {cast.map(({ name, profile_path, id }) => (
             <li key={id} className={css.actorItem}>
-              <img
+              <LazyLoadImage
+                effect="blur"
+                placeholderSrc="https://pocosmiles.com/wp-content/uploads/2021/05/500-x-750-Placeholder.jpg"
                 className={css.actorAvatar}
                 src={
                   profile_path
                     ? `http://image.tmdb.org/t/p/w500/${profile_path}`
                     : 'https://pocosmiles.com/wp-content/uploads/2021/05/500-x-750-Placeholder.jpg'
                 }
-                alt=""
+                alt="Actor avatar"
               />
               <p>{name}</p>
             </li>

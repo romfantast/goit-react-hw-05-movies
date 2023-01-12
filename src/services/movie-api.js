@@ -10,7 +10,7 @@ export const getTrending = () => {
 
 export const getMovie = query => {
   const data = axios.get(
-    `${BASE_URL}/search/movie/?api_key=${API_KEY}&language=en-US&query=${query}`
+    `${BASE_URL}/search/movie?api_key=${API_KEY}&language=en-US&query=${query}`
   );
   return data;
 };
